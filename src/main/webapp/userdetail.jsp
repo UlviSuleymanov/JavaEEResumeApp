@@ -14,9 +14,7 @@
 </head>
 <body>
 <%
-    UserDaoInter userDaoInter = Context.instanceUserDao();
-    User u = userDaoInter.getById(1);
-
+    User u = (User) request.getAttribute("user");
 %>
 <div>
     <form action="UserController" method="POST">

@@ -1,6 +1,4 @@
-<%@ page import="dao.inter.UserDaoInter" %>
 <%@ page import="entity.User" %>
-<%@ page import="main.Context" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -13,16 +11,7 @@
 </head>
 <body>
 <%
-    UserDaoInter userDaoInter = Context.instanceUserDao();
-    String name = request.getParameter("name");
-    String surname = request.getParameter("surname");
-    String nationalityStr = request.getParameter("nid");
-    Integer nationality_id = null;
-    if (nationalityStr != null && !nationalityStr.trim().isEmpty()) {
-        nationality_id = Integer.parseInt(nationalityStr);
-    }
-
-    List<User> users = userDaoInter.getAll(name, surname, nationality_id);
+    List<User> users = (List<User>) request.getAttribute("users");
 %>
 <div class="container">
     <div>
