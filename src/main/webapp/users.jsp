@@ -6,6 +6,10 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="styles/root.css">
+    <script src="https://kit.fontawesome.com/aa0029724a.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
 <%
@@ -14,47 +18,67 @@
     String surname = request.getParameter("surname");
     String nationalityStr = request.getParameter("nid");
     Integer nationality_id = null;
-    if(nationalityStr!=null && !nationalityStr.trim().isEmpty()){
-        nationality_id =Integer.parseInt(nationalityStr);
+    if (nationalityStr != null && !nationalityStr.trim().isEmpty()) {
+        nationality_id = Integer.parseInt(nationalityStr);
     }
 
     List<User> users = userDaoInter.getAll(name, surname, nationality_id);
 %>
+<div class="container">
+    <div>
+        <div class="mycontainer">
+            <form action="users.jsp" method="GET">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input placeholder="enter name" class="form-control" type="text" name="name" value=""/>
+                </div>
+                <div class="form-group">
+                    <label for="surname">Surname:</label>
+                    <input placeholder="enter surname" class="form-control" type="text" name="surname" value=""/>
+                </div>
+                <input class="btn btn-primary" type="submit" name="save" value="Search"/>
+            </form>
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Nationality</th>
+                    <th>Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    for (User u : users) {
+                %>
+                <tr>
+                    <td><%=u.getName()%>
+                    </td>
+                    <td><%=u.getSurname()%>
+                    </td>
+                    <td><%=u.getNationality().getName() == null ? "N/A" : u.getNationality().getName()%>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" type="submit" value="delete" name="action">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        <button class="btn btn-secondary" type="submit" value="update" name="action">
+                            <i class="fa-sharp fa-solid fa-pen"></i>
+                        </button>
 
-<div>
-    <form action="users.jsp" method="GET">
-        <label for="name">name:</label>
-        <input type="text" name="name" value=""/>
-        <br/>
-        <label for="surname">surname:</label>
-        <input type="text" name="surname" value=""/>
-        <input type="submit" name="save" value="Search"/>
-    </form>
+                    </td>
+                </tr>
+                <%}%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
-<div>
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Nationality</th>
-        </tr>
-        </thead>
-        <tbody>
-        <%
-            for (User u : users) {
-        %>
-        <tr>
-            <td><%=u.getName()%>
-            </td>
-            <td><%=u.getSurname()%>
-            </td>
-            <td><%=u.getNationality().getName() == null ? "N/A" : u.getNationality().getName()%>
-            </td>
-        </tr>
-        <%}%>
-        </tbody>
-    </table>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
 </html>
