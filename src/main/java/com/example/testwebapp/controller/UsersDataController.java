@@ -1,4 +1,4 @@
-package com.example.testwebapp;
+package com.example.testwebapp.controller;
 
 import dao.inter.UserDaoInter;
 import entity.User;
@@ -9,8 +9,8 @@ import main.Context;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "UsersController", value = "/users.jsp")
-public class UsersController extends HttpServlet {
+@WebServlet(name = "UsersController", value = "/users")
+public class UsersDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -27,15 +27,19 @@ public class UsersController extends HttpServlet {
                 throw new IllegalArgumentException("Users are not defined or found");
             }
             request.setAttribute("users", users);
-            request.getRequestDispatcher("usersdetails.jsp").forward(request, response);
+            request.getRequestDispatcher("usersdata.jsp").forward(request, response);
         } catch (Exception ex) {
             ex.printStackTrace();
-            response.sendRedirect("error.jsp?msg=" + ex.getMessage());
+            response.sendRedirect("error?msg=" + ex.getMessage());
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
 }

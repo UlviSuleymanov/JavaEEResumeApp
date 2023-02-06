@@ -1,4 +1,4 @@
-package com.example.testwebapp;
+package com.example.testwebapp.controller;
 
 
 import dao.inter.UserDaoInter;
@@ -12,22 +12,34 @@ import main.Context;
 
 import java.io.IOException;
 
-@WebServlet(name = "UserController", value = "/userdetail")
-public class UserController extends HttpServlet {
+@WebServlet(name = "UserDataController", value = "/userdata")
+public class UserDataController extends HttpServlet {
     private UserDaoInter userDaoInter = Context.instanceUserDao();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.valueOf(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
+        String action = request.getParameter("action");
+        if (action.equals("update")) {
+            String name = request.getParameter("name");
+            String surname = request.getParameter("surname");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            String adress = request.getParameter("adress");
 
-        User user = userDaoInter.getById(id);
-        user.setName(name);
-        user.setSurname(surname);
-        userDaoInter.updateUser(user);
-        response.sendRedirect("userdetail.jsp");
+            User user = userDaoInter.getById(id);
+            user.setName(name);
+            user.setSurname(surname);
+            user.setEmail(email);
+            user.setPhone(phone);
+            user.setAdress(adress);
+            userDaoInter.updateUser(user);
+        } else if (action.equals("delete")) {
+            userDaoInter.removeUser(id);
+        }
+        response.sendRedirect("users");
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,10 +55,10 @@ public class UserController extends HttpServlet {
                 throw new IllegalArgumentException("There is no User with this id");
             }
             request.setAttribute("user", u);
-            request.getRequestDispatcher("userdetail.jsp").forward(request, response);
+            request.getRequestDispatcher("userdata.jsp").forward(request, response);
         } catch (Exception ex) {
             ex.printStackTrace();
-            response.sendRedirect("error.jsp?msg="+ex.getMessage());
+            response.sendRedirect("error?msg=" + ex.getMessage());
         }
     }
 }

@@ -16,7 +16,7 @@
 <div class="container">
     <div>
         <div class="mycontainer">
-            <form action="users.jsp" method="GET">
+            <form action="users" method="GET">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input placeholder="enter name" class="form-control" type="text" name="name" value=""/>
@@ -50,13 +50,19 @@
                     <td><%=u.getNationality().getName() == null ? "N/A" : u.getNationality().getName()%>
                     </td>
                     <td>
-                        <button class="btn btn-danger" type="submit" value="delete" name="action">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                        <button class="btn btn-secondary" type="submit" value="update" name="action">
-                            <i class="fa-sharp fa-solid fa-pen"></i>
-                        </button>
-
+                        <form action="userdata" method="POST">
+                            <input type="hidden" name="id" value="<%=u.getId()%>"/>
+                            <input type="hidden" name="action" value="delete"/>
+                            <button class="btn btn-danger" type="submit">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                        <form action="userdata" method="GET">
+                            <input type="hidden" name="id" value="<%=u.getId()%>"/>
+                            <button class="btn btn-secondary" type="submit" name="action" value="update">
+                                <i class="fa-sharp fa-solid fa-pen"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 <%}%>
