@@ -98,7 +98,6 @@
                     <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
                     <button type="submit" class="btn btn-danger">Yes</button>
                 </form>
-
             </div>
         </div>
     </div>
