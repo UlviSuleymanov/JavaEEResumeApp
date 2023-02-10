@@ -11,10 +11,17 @@
     <script src="DOM/index.js"></script>
 </head>
 <body>
+
 <%
     List<User> users = (List<User>) request.getAttribute("users");
 %>
 <div class="container">
+    <h3>
+        Welcome <%
+        User user = (User) session.getAttribute("loggedInUser");
+        out.print(user.getName());
+    %>
+    </h3>
     <div>
         <div class="mycontainer">
             <form action="users" method="GET">
