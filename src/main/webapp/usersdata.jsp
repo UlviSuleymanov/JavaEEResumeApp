@@ -16,12 +16,18 @@
     List<User> users = (List<User>) request.getAttribute("users");
 %>
 <div class="container">
-    <h3>
-        Welcome <%
-        User user = (User) session.getAttribute("loggedInUser");
-        out.print(user.getName());
-    %>
-    </h3>
+    <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 10px">
+        <h3>
+            Welcome <%
+            User user = (User) session.getAttribute("loggedInUser");
+            out.print(user.getName());
+        %>
+        </h3>
+        <form action="Logout" method="GET">
+            <button style="margin-left: auto;" class="btn btn-secondary" type="submit">Log out</button>
+        </form>
+    </div>
+
     <div>
         <div class="mycontainer">
             <form action="users" method="GET">
@@ -36,6 +42,8 @@
                 </div>
                 <input class="btn btn-primary" type="submit" name="save" value="Search"/>
             </form>
+
+
         </div>
         <div>
             <table class="table">
