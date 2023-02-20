@@ -64,7 +64,7 @@
                     </td>
                     <td><%=u.getSurname()%>
                     </td>
-                    <td><%=u.getNationality().getName() == null ? "N/A" : u.getNationality().getName()%>
+                    <td><%=u.getNationalityId() == null ? "N/A" : u.getCountryByNationalityId().getName()%>
                     </td>
                     <td style="display: flex; flex-direction: row;">
                         <div style="margin-right: 15px;">
